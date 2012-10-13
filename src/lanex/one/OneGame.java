@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
@@ -19,10 +20,10 @@ public class OneGame extends ScreenPage {
 	public static final float leftBound = WALL_THICKNESS,
 			rightBound = 720 - WALL_THICKNESS, upBound = WALL_THICKNESS,
 			lowBound = 720 - WALL_THICKNESS;
-	public static final Rectangle topDoor = new Rectangle(335, 0, 50, 50),
-			bottomDoor = new Rectangle(335, 670, 50, 50),
-			leftDoor = new Rectangle(0, 335, 50, 50),
-			rightDoor = new Rectangle(670, 335, 50, 50);
+	public static final Rectangle topDoor = new Rectangle(322.5f, 0, 75, 75),
+			bottomDoor = new Rectangle(322.5f, 645, 75, 75),
+			leftDoor = new Rectangle(0, 322.5f, 75, 75),
+			rightDoor = new Rectangle(645, 322.5f, 75, 75);
 
 	// GAME LOGIC
 	static Floor currentFloor;
@@ -71,7 +72,7 @@ public class OneGame extends ScreenPage {
 
 		g.clear();
 		g.setColor(Color.white);
-		g.drawString("IN GAME!!!", 100, 100);
+		//g.drawString("IN GAME!!!", 100, 100);
 
 		// ERM.listRes();
 		// System.out.println("IMAGE: " + ERM.getImage("room.png"));
@@ -87,27 +88,38 @@ public class OneGame extends ScreenPage {
 
 		player.render(g);
 
-		
-		//STATS
-		g.setColor (Color.white);
-		g.drawString ("Score: " + player.score,740,20);
-		g.drawString ("Health: " + player.health,740,40);
-		g.drawString ("Damage: " + player.damage,740,60);
-		g.drawString ("Strength: " + player.mass,740,80);
-		g.drawString ("Speed: " + player.MAX_SPEED,740,100);
-		
-		
+				
 		//DRAW MAP
-		g.setColor(Color.red);
-		g.drawRect(980, 0, 300, 300);
+		g.setColor(Color.black);
+		//g.drawRect(980, 0, 300, 300);
+		g.fillRect(720, 400, 560, 400);
+		
+		Image regular = ERM.getImage("small_room.png");
+		Image red = ERM.getImage("small_red_room.png");
+		regular = regular.getScaledCopy(560/currentFloor.size, 560/currentFloor.size);
+		red = red.getScaledCopy(560/currentFloor.size, 560/currentFloor.size);
 		for(int x = 0; x < currentFloor.size; x++){
 			for(int y = 0; y < currentFloor.size; y++){
-				g.drawRect(980 + x*300/currentFloor.size, y*300/currentFloor.size, 300/currentFloor.size, 300/currentFloor.size);
+				g.drawImage(regular, 720 + x*560/currentFloor.size, y*560/currentFloor.size);
 			}
 		}
 		
-		g.fillRect(980 + currentRoom.indX*300/currentFloor.size, currentRoom.indY*300/currentFloor.size, 300/currentFloor.size, 300/currentFloor.size);
+		g.drawImage(red, 720 + currentRoom.indX*560/currentFloor.size, currentRoom.indY*560/currentFloor.size);
 		
+		
+		g.drawImage(ERM.getImage("potion.png"), 760, 590);
+		g.drawImage(ERM.getImage("boots.png"), 890, 590);
+		g.drawImage(ERM.getImage("weapon.png"), 1020, 590);
+		g.drawImage(ERM.getImage("armor.png"), 1150, 590);
+		
+
+		//STATS
+		g.setColor (Color.white);
+		g.drawString ("Score: " + player.score,1000,650);
+		g.drawString (":" + player.health + " (" + player.potions + ")",800,600);
+		g.drawString (":" + player.MAX_SPEED + " (" + player.boots + ")",930,600);
+		g.drawString (":" + player.damage + " (" + player.weapons + ")",1060,600);
+		g.drawString (":" + player.mass + " (" + player.armors + ")",1190,600);
 	}
 
 	public void checkDoors() {
@@ -116,21 +128,21 @@ public class OneGame extends ScreenPage {
 		if (topDoor.contains(player.position.x, player.position.y)) {
 			x = currentRoom.indX;
 			y = currentRoom.indY - 1;
-			player.position.y = 670;
+			player.position.y = 640;
 		} else if (bottomDoor.contains(player.position.x, player.position.y)) {
 			x = currentRoom.indX;
 			y = currentRoom.indY + 1;
-			player.position.y = 50;
+			player.position.y = 80;
 
 		} else if (leftDoor.contains(player.position.x, player.position.y)) {
 			x = currentRoom.indX - 1;
 			y = currentRoom.indY;
-			player.position.x = 670;
+			player.position.x = 640;
 
 		} else if (rightDoor.contains(player.position.x, player.position.y)) {
 			x = currentRoom.indX + 1;
 			y = currentRoom.indY;
-			player.position.x = 50;
+			player.position.x = 80;
 		} else {
 			return;
 		}

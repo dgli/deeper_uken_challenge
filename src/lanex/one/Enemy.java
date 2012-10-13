@@ -12,6 +12,7 @@ public class Enemy extends Character{
 		super((float)Math.random()*320 + 200, (float)Math.random()*320 + 200);
 		if (mob == MobTypes.LARGE_MOB)
 		{
+			health = 150;
 			img = "large_mob.png";
 			sight = 2f;
 			super.MAX_SPEED = 3.5f;
@@ -27,6 +28,7 @@ public class Enemy extends Character{
 		}
 		if (mob == MobTypes.SMALL_MOB)
 		{
+			health = 50;
 			img = "small_mob.png";
 			sight = 3f;
 			super.MAX_SPEED = 5.5f;

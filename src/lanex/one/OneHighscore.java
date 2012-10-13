@@ -52,7 +52,7 @@ public class OneHighscore extends ScreenPage{
 		
 		int i = 0;
 		for(Integer s : scores){
-			g.drawString("    Score: " + s, 40, 400 - 30*i++);
+			g.drawString("    Score: " + s, 40, 200 + 30*i++);
 		}
 
 		

@@ -15,7 +15,7 @@ public abstract class Character {
 	protected float maxSpeed;
 	protected Vector2f velocity;
 	protected float radius;
-	protected float MAX_SPEED, SLOW_SPEED = 0.2f;
+	protected float MAX_SPEED, SLOW_SPEED = 0.3f;
 	protected String img;
 	protected float damage;
 	protected float sightRadius;
@@ -116,9 +116,9 @@ public abstract class Character {
 		redCircle.setAlpha(0.2f);
 		g.drawImage(redCircle, position.x - sightRadius, position.y - sightRadius);
 		
-
-		g.setColor(Color.blue);
-		g.drawOval(position.x - radius, position.y - radius, radius * 2,
-				radius * 2);
+//
+//		g.setColor(Color.blue);
+//		g.drawOval(position.x - radius, position.y - radius, radius * 2,
+//				radius * 2);
 	}
 }

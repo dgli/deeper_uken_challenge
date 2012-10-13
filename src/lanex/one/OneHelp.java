@@ -13,7 +13,7 @@ public class OneHelp extends ScreenPage{
 	private Button menu_button;
 	
 	public OneHelp(){
-		menu_button = new Button(OneApp.RENDER_WIDTH/2 - 200,  550, 400, 100, "menu_button.png");
+		menu_button = new Button(100,  600, 400, 100, "menu_button.png");
 	}
 
 	@Override

@@ -1,3 +1,8 @@
+RUN WITH:
+====================
+java -jar -Djava.library.path=lib one.jar
+====================
+
 Deeper - Between a Rock and a Hard Place.
 
 You are an adventurer, a man now hunted by the local king! In your daring escape from the castle keep,

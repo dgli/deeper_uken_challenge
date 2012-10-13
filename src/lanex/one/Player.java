@@ -7,6 +7,7 @@ public class Player extends Character{
 	protected Room currentRoom;
 	protected float agroRadius;
 	protected static int score = 0;
+	public static int potions, armors, boots, weapons;
 	
 	public Player (float x, float y)
 	{
@@ -19,6 +20,14 @@ public class Player extends Character{
 		mass = 2;
 		damage = 4*mass;
 		score = 0;
+		clearItems();
+	}
+	
+	public static void clearItems(){
+		potions = 0;
+		armors = 0;
+		boots = 0;
+		weapons = 0;
 	}
 	
 	@Override
