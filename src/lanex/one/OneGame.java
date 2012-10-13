@@ -5,13 +5,14 @@ import java.util.ArrayList;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
 
 public class OneGame extends ScreenPage {
-	Player player;
-	Vector2f mousePosition;
+	static Player player;
+	static Vector2f mousePosition;
 	public static int level = 1;
 	boolean mouseON = false;
 	public static final float WALL_THICKNESS = 40;
@@ -28,6 +29,12 @@ public class OneGame extends ScreenPage {
 	static Room currentRoom;
 
 	public static void initNew() {
+		level = 1;
+		player = new Player(100, 100);
+		mousePosition = new Vector2f(player.position.x, player.position.y);
+		makeFloor();
+	}
+	public static void makeFloor() {
 		currentFloor = new Floor(level);
 		currentFloor.generate();
 		currentRoom = currentFloor.getRoom(0, 0);
@@ -45,7 +52,7 @@ public class OneGame extends ScreenPage {
 
 		if (mouseON) {
 			Vector2f acceleration = mousePosition.copy().sub(player.position)
-					.normalise();
+					.normalise().scale(1f);
 			player.accelerate(acceleration);
 			// ERM.getImage("character.png").setRotation((float)
 			// acceleration.getTheta());
@@ -72,14 +79,24 @@ public class OneGame extends ScreenPage {
 		// ERM.getImage("character.png").setRotation(ERM.getImage("character.png").getRotation()+1);
 		currentRoom.render(g);
 
-		// DEBUG DRAW DOORS TO CHECK
-		g.draw(topDoor);
-		g.draw(bottomDoor);
-		g.draw(leftDoor);
-		g.draw(rightDoor);
+//		// DEBUG DRAW DOORS TO CHECK
+//		g.draw(topDoor);
+//		g.draw(bottomDoor);
+//		g.draw(leftDoor);
+//		g.draw(rightDoor);
 
 		player.render(g);
 
+		
+		//STATS
+		g.setColor (Color.white);
+		g.drawString ("Score: " + player.score,740,20);
+		g.drawString ("Health: " + player.health,740,40);
+		g.drawString ("Damage: " + player.damage,740,60);
+		g.drawString ("Strength: " + player.mass,740,80);
+		g.drawString ("Speed: " + player.MAX_SPEED,740,100);
+		
+		
 		//DRAW MAP
 		g.setColor(Color.red);
 		g.drawRect(980, 0, 300, 300);
@@ -122,6 +139,7 @@ public class OneGame extends ScreenPage {
 		if (x > currentFloor.size-1) x = 0;
 		if (y > currentFloor.size-1) y = 0;
 		currentRoom = currentFloor.getRoom(x, y);
+		ERM.sfx("door.se.ogg");
 	}
 
 	@Override
@@ -150,6 +168,11 @@ public class OneGame extends ScreenPage {
 
 	@Override
 	public void mousePressed(int button, int x, int y) {
+		if (button == Input.MOUSE_LEFT_BUTTON)
+		{
+			float theta = (float) Math.atan((y-player.position.y)/(x-player.position.x)); 
+			player.velocity = new Vector2f((float)Math.cos(theta)*player.MAX_SPEED/2,(float)Math.sin(theta)*player.MAX_SPEED/2);
+		}
 		mouseDragged(x, y, x, y);
 		mouseON = true;
 	}

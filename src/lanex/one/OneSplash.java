@@ -53,8 +53,8 @@ public class OneSplash extends ScreenPage{
 					OneApp.setPage(REDIRECT);
 				}
 
-				g.drawImage(black, 0, 0, container.getWidth(), container.getHeight(), 
-						0, 0, 4, 4);
+				g.drawImage(black, 0, 0, OneApp.RENDER_WIDTH, OneApp.RENDER_HEIGHT,
+						0, 0, 40, 40);
 			} else {
 				ERM.loadNext();
 			}

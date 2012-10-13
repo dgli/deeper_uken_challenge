@@ -6,6 +6,7 @@ import org.newdawn.slick.Graphics;
 public class Player extends Character{
 	protected Room currentRoom;
 	protected float agroRadius;
+	protected static int score = 0;
 	
 	public Player (float x, float y)
 	{
@@ -14,8 +15,10 @@ public class Player extends Character{
 		agroRadius = 30;
 		radius = agroRadius;
 		img = "character.png";
-		super.MAX_SPEED = 3f;
+		super.MAX_SPEED = 6f;
 		mass = 2;
+		damage = 4*mass;
+		score = 0;
 	}
 	
 	@Override

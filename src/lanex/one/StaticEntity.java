@@ -10,6 +10,7 @@ public class StaticEntity {
 	protected Vector2f position;
 	protected float radius;
 	protected String img;
+	protected boolean flag = false;
 	
 	public StaticEntity (float x, float y, float radius, String img)
 	{
@@ -39,6 +40,7 @@ public class StaticEntity {
 		if (checkCollision (p))
 		{
 			onHit();
+			flag = true;
 		}
 	}
 }

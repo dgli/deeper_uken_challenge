@@ -10,6 +10,6 @@ class Stairs extends StaticEntity {
 	@Override
 	public void onHit()
 	{
-		OneGame.initNew();
+		OneGame.makeFloor();
 	}
 }

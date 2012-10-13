@@ -5,6 +5,7 @@ import java.util.Arrays;
 public class Floor {
 	private Room [][] rooms;
 	private int maxMobs;
+	private int maxItems;
 	public int size;
 	
 	public Floor (int level)
@@ -13,7 +14,9 @@ public class Floor {
 		
 		rooms = new Room [size][size];
 		
-		maxMobs = Math.min(level/5 + 1, 4);
+		maxMobs = Math.min(level/5 + 2, 4);
+		
+		maxItems = maxMobs;
 		
 		generate();
 	}
@@ -35,6 +38,10 @@ public class Floor {
 				{
 					rooms[x][y].addMob();
 				}while (Math.random() < 0.3 && rooms[x][y].mobs.size() < maxMobs);
+				do
+				{
+					rooms[x][y].addItem();
+				}while (Math.random() < 0.3 && rooms[x][y].items.size() <= maxItems);
 			}
 		}
 		

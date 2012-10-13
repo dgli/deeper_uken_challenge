@@ -4,6 +4,7 @@ import java.awt.Point;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Vector2f;
 
 public abstract class Character {
@@ -14,14 +15,17 @@ public abstract class Character {
 	protected float maxSpeed;
 	protected Vector2f velocity;
 	protected float radius;
-	protected float MAX_SPEED, SLOW_SPEED = 0.1f;
+	protected float MAX_SPEED, SLOW_SPEED = 0.2f;
 	protected String img;
+	protected float damage;
 	protected float sightRadius;
+	protected float sight;
 
 	public Character(float x, float y) {
 		position = new Vector2f(x, y);
 		velocity = new Vector2f(0, 0);
 		health = 100;
+		sight = 1.0f;
 	}
 
 	public void move() {
@@ -54,17 +58,19 @@ public abstract class Character {
 
 	public static void collisionCheck(Character c1, Character c2) {
 		if (c1.checkCollision(c2)) {
+			ERM.getSound("hit.se.ogg").play();
 			Vector2f v1 = c1.velocity;
 			Vector2f v2 = c2.velocity;
 			collideCharacters(c1, c2);
 			v1.sub(c1.velocity);
 			v2.sub(c2.velocity);
-			c1.health -= v1.length() + c1.mass;
-			c2.health -= v2.length() + c2.mass;
+			c1.health -= v1.length()/10 + c1.damage;
+			c2.health -= v2.length() + c2.damage;
 		}
 	}
 
 	public void update() {
+		sightRadius = sight*health + radius;
 		position.add(velocity);
 		velocity.sub(velocity.copy().normalise().scale(SLOW_SPEED));
 		if (velocity.length() < SLOW_SPEED) {
@@ -105,9 +111,11 @@ public abstract class Character {
 				- ERM.getImage(img).getWidth() / 2,
 				position.y - ERM.getImage(img).getHeight() / 2);
 
-		g.setColor(Color.red);
-		g.drawOval(position.x - sightRadius, position.y - sightRadius,
-				sightRadius * 2, sightRadius * 2);
+		Image redCircle = ERM.getImage("red_circle.png");
+		redCircle = redCircle.getScaledCopy((int) sightRadius*2, (int) sightRadius*2);
+		redCircle.setAlpha(0.2f);
+		g.drawImage(redCircle, position.x - sightRadius, position.y - sightRadius);
+		
 
 		g.setColor(Color.blue);
 		g.drawOval(position.x - radius, position.y - radius, radius * 2,

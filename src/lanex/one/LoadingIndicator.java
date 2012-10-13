@@ -25,7 +25,7 @@ public class LoadingIndicator {
 	}
 
 	public static void draw(Graphics g){
-		g.drawImage(snow, 450, 350);
+		g.drawImage(snow, 1050, 600);
 		snow.setRotation(snow.getRotation() + 2f);
 		if (snow.getAlpha() >= 0.6) {
 			sP = false;
@@ -39,7 +39,7 @@ public class LoadingIndicator {
 			snow.setAlpha(snow.getAlpha() - 0.014f);
 		}
 
-		g.drawImage(japanese, 450, 380);
+		g.drawImage(japanese, 1050, 630);
 		if (japanese.getAlpha() >= 1) {
 			jP = false;
 		} else if (japanese.getAlpha() <= 0.3f) {
@@ -52,7 +52,7 @@ public class LoadingIndicator {
 			japanese.setAlpha(japanese.getAlpha() - 0.018f);
 		}
 
-		g.drawImage(english, 480, 400);
+		g.drawImage(english, 1080, 650);
 		if (english.getAlpha() >= 1) {
 			eP = false;
 		} else if (english.getAlpha() <= 0.3f) {
