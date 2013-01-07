@@ -158,7 +158,7 @@ public class OneApp extends BasicGame implements ComponentListener {
 					"Touhou Project Doujin 12.1"), RENDER_WIDTH, RENDER_HEIGHT,
 					true));
 
-			app.setDisplayMode(1280, 720, false);
+			app.setDisplayMode(1280, 720, true);
 			// app.setDisplayMode(960, 720, false);
 			// app.setDisplayMode(1024, 768, false);
 
